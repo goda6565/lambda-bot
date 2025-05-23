@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        directory: ["terraform/shared", "terraform/envs/dev"]
+        directory: ["terraform/shared"]
       fail-fast: false
     defaults:
       run:
