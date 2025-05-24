@@ -2,7 +2,7 @@ resource "aws_lambda_function" "lambda" {
   function_name = local.lambda_function_full_name
   architectures = ["arm64"]
   package_type  = "Image"
-  image_uri     = "public.ecr.aws/lambda/python:3.12" # this is a dummy image for now. image will be updated by github actions.
+  image_uri     = "public.ecr.aws/lambda/provided:al2" # this is a dummy image for now. image will be updated by github actions.
   role          = aws_iam_role.lambda_role.arn
   publish       = true
 
