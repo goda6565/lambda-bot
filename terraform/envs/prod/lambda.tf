@@ -5,4 +5,5 @@ module "lambda" {
   lambda_environment = {
     ENV = var.env
   }
+  secret_manager_secrets = module.secrets_manager.secrets
 }

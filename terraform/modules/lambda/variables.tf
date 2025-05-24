@@ -31,3 +31,9 @@ variable "cloudwatch_log_retention_in_days" {
   default     = 30
 }
 
+variable "secret_manager_secrets" {
+  type = map(object({
+    arn = string
+    description = optional(string)
+  }))
+}
