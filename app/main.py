@@ -1,25 +1,18 @@
-import json
+from slack_bolt import App
+from slack_bolt.adapter.aws_lambda import SlackRequestHandler
 
-def handle_challenge(event_body: dict) -> dict | None:
-    if event_body.get("type") == "url_verification" and "challenge" in event_body:
-        return {
-            "statusCode": 200,
-            "headers": {"Content-Type": "application/json"},
-            "body": json.dumps({"challenge": event_body["challenge"]})
-        }
-    return None
+from config import setting
+
+app = App(
+    token=setting.slack_bot_token,
+    signing_secret=setting.slack_signing_secret,
+    process_before_response=True,
+)
 
 def lambda_handler(event, context):
-    try:
-        body = json.loads(event["body"])
-    except Exception:
-        return {"statusCode": 400, "body": "invalid json"}
+    return SlackRequestHandler(app).handle(event, context)
 
-    # チャレンジ検証
-    challenge_response = handle_challenge(body)
-    if challenge_response:
-        print(f"challenge_response: {challenge_response}")
-        return challenge_response
-
-    # それ以外の通常処理
-    return {"statusCode": 200, "body": "Hello from lambda-bot!"}
+@app.event("app_mention")
+def handle_app_mention_events(event, say):
+    input_text = "Hello from lambda-bot!"
+    say(input_text)
