@@ -33,7 +33,7 @@ variable "cloudwatch_log_retention_in_days" {
 
 variable "secret_manager_secrets" {
   type = map(object({
-    arn = string
+    arn         = string
     description = optional(string)
   }))
 }
