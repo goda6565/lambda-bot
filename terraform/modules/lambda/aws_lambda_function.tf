@@ -16,10 +16,7 @@ resource "aws_lambda_function" "lambda" {
   }
 
   environment {
-    variables = merge(
-      var.lambda_environment,
-      local.lambda_env_vars
-    )
+    variables = var.lambda_environment
   }
 
   tracing_config {

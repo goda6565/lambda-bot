@@ -31,9 +31,7 @@ variable "cloudwatch_log_retention_in_days" {
   default     = 30
 }
 
-variable "secret_manager_secrets" {
-  type = map(object({
-    arn         = string
-    description = optional(string)
-  }))
+variable "secret_manager_secrets_arns" {
+  description = "The arns of the secrets to be used by the lambda function"
+  type        = list(string)
 }
