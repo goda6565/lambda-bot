@@ -6,7 +6,7 @@ module "lambda" {
     ENV = var.env
   }
   secret_manager_secrets_arns = [
-    module.secrets_manager.slack_bot_token_arn,
-    module.secrets_manager.slack_signing_secret_arn,
+    module.slack_bot_token.secret_manager_secrets_arn,
+    module.slack_signing_secret.secret_manager_secrets_arn,
   ]
 }
