@@ -36,7 +36,9 @@ def handle_app_mention_events(event: dict, say: Say):
     # メッセージのタイムスタンプを取得（スレッドの親メッセージIDとして使用）
     ts = event.get("ts")
 
+    print(event)
     attachments = event.get("attachments", [])
+    print(attachments)
     if not attachments:
         say(
             text="論文のURLが見つかりませんでした。\n このBotはarxivの論文しか対応していません。",
