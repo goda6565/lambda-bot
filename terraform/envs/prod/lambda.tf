@@ -8,5 +8,6 @@ module "lambda" {
   secret_manager_secrets_arns = [
     module.slack_bot_token.secrets_manager_secrets_arn,
     module.slack_signing_secret.secrets_manager_secrets_arn,
+    module.gemini_api_key.secrets_manager_secrets_arn,
   ]
 }
