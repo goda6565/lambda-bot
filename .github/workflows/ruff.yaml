@@ -1,6 +1,10 @@
 name: ruff
 
-on: [push]
+on:
+  push:
+    paths:
+      - "app/**"
+      - ".github/workflows/ruff.yaml"
 
 jobs:
   build:

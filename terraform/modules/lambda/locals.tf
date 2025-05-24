@@ -5,6 +5,6 @@ locals {
 locals {
   lambda_env_vars = {
     for key, value in var.secret_manager_secrets :
-    "${upper(key)}_ARN" => value.arn
+    replace(upper(key), "-", "_") => value.arn
   }
 }
