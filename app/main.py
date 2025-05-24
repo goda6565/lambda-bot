@@ -3,6 +3,9 @@ from slack_bolt.adapter.aws_lambda import SlackRequestHandler
 
 from .config import setting
 
+print(setting.slack_bot_token)
+print(setting.slack_signing_secret)
+
 app = App(
     token=setting.slack_bot_token,
     signing_secret=setting.slack_signing_secret,
