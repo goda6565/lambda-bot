@@ -1,6 +1,3 @@
-output "secrets" {
-  value = {
-    for k, v in aws_secretsmanager_secret.secretsmanager_secret :
-    k => v.arn
-  }
+output "secrets_manager_secrets_arn" {
+  value = aws_secretsmanager_secret.secretsmanager_secret.arn
 }

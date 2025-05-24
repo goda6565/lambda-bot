@@ -1,7 +1,7 @@
 from slack_bolt import App
 from slack_bolt.adapter.aws_lambda import SlackRequestHandler
 
-from config import setting
+from .config import setting
 
 app = App(
     token=setting.slack_bot_token,
