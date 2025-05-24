@@ -9,3 +9,9 @@ module "slack_signing_secret" {
 
   secret_manager_secrets_name = "slack-signing-secret-prod"
 }
+
+module "gemini_api_key" {
+  source = "../../modules/secretsmanager"
+
+  secret_manager_secrets_name = "gemini-api-key-prod"
+}
