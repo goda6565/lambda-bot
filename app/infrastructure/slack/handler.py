@@ -36,17 +36,17 @@ def handle_app_mention_events(event: dict, say: Say):
     # メッセージのタイムスタンプを取得（スレッドの親メッセージIDとして使用）
     ts = event.get("ts")
 
-    print(event)
-    attachments = event.get("attachments", [])
-    print(attachments)
-    if not attachments:
+    url = extract_arxiv_url(event)
+
+    if not url or "arxiv.org/abs/" not in url:
         say(
-            text="論文のURLが見つかりませんでした。\n このBotはarxivの論文しか対応していません。",
+            text="論文のURLが無効です。\n このBotはarxivの論文しか対応していません。",
             thread_ts=ts,
         )
         return
 
-    paper_id = attachments[0].get("from_url", "").split("/")[-1]
+    # URLから論文IDを抽出
+    paper_id = url.split("arxiv.org/abs/")[-1]
     if not paper_id:
         say(
             text="論文のURLが無効です。\n このBotはarxivの論文しか対応していません。",
@@ -64,3 +64,15 @@ def handle_app_mention_events(event: dict, say: Say):
         text=formatted_message,
         thread_ts=ts,  # スレッドの親メッセージIDを指定
     )
+
+
+def extract_arxiv_url(event: dict) -> str | None:
+    for block in event.get("blocks", []):
+        for element in block.get("elements", []):
+            if element.get("type") == "rich_text_section":
+                for item in element.get("elements", []):
+                    if item.get("type") == "link":
+                        url = item.get("url", "")
+                        if "arxiv.org/abs/" in url:
+                            return url
+    return None
