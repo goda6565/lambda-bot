@@ -2,6 +2,13 @@ name: "Terraform Multi-Env CI"
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
+  pull_request:
+    branches:
+      - main
     paths:
       - 'terraform/**'
 
