@@ -1,11 +1,12 @@
 from slack_bolt import App
 from slack_bolt.adapter.aws_lambda import SlackRequestHandler
 
-from .config import setting
+from app.infra.secrets_manager.get_secret import get_secret
+from app.config import setting
 
 app = App(
-    token=setting.slack_bot_token,
-    signing_secret=setting.slack_signing_secret,
+    token=get_secret(f"slack-bot-token-{setting.env}", "ap-northeast-1"),
+    signing_secret=get_secret(f"slack-signing-secret-{setting.env}", "ap-northeast-1"),
     process_before_response=True,
 )
 
