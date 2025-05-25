@@ -28,14 +28,13 @@ def format_paper_for_slack(paper: Paper) -> str:
 
 
 def slack_handler(event, context):
+    if event["headers"].get("x-slack-retry-num") is None:
+        return
     return SlackRequestHandler(app).handle(event, context)
 
 
 @app.event("app_mention")
 def handle_app_mention_events(event: dict, say: Say):
-    if event["headers"].get("x-slack-retry-num"):
-        return
-
     # メッセージのタイムスタンプを取得（スレッドの親メッセージIDとして使用）
     ts = event.get("ts")
 
