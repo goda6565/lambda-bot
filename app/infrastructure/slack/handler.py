@@ -15,21 +15,22 @@ app = App(
 
 def format_paper_for_slack(paper: Paper) -> str:
     """PaperオブジェクトをSlackメッセージ用の文字列に変換する"""
-    return f"""*{paper.title}*
+    return f"""
+    *{paper.title}*
 
-    *著者*: {", ".join(paper.authors)}
+    *著者*: {", ".join(paper.authors)} 
     *カテゴリ*: {", ".join(paper.categories)}
     *公開日*: {paper.published_date}
     *URL*: {paper.url}
     *PDF*: {paper.pdf_url}
 
-    *要約*:
     {paper.summary}"""
 
 
 def slack_handler(event, context):
-    if event["headers"].get("x-slack-retry-num") is None:
-        return
+    # slackは3秒以上処理が終わらないとリトライになるので、リトライが発生した場合は処理をスキップする
+    if event["headers"].get("x-slack-retry-num") is not None:
+        return {"statusCode": 200}
     return SlackRequestHandler(app).handle(event, context)
 
 
