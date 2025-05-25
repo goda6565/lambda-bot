@@ -28,8 +28,9 @@ def format_paper_for_slack(paper: Paper) -> str:
 
 
 def slack_handler(event, context):
-    if event["headers"].get("x-slack-retry-num") is None:
-        return
+    # slackは3秒以上処理が終わらないとリトライになるので、リトライが発生した場合は処理をスキップする
+    if event["headers"].get("x-slack-retry-num") is not None:
+        return {"statusCode": 200}
     return SlackRequestHandler(app).handle(event, context)
 
 
