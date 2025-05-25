@@ -33,6 +33,9 @@ def slack_handler(event, context):
 
 @app.event("app_mention")
 def handle_app_mention_events(event: dict, say: Say):
+    if event["headers"].get("x-slack-retry-num"):
+        return
+
     # メッセージのタイムスタンプを取得（スレッドの親メッセージIDとして使用）
     ts = event.get("ts")
 
