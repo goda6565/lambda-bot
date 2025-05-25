@@ -2,7 +2,7 @@ from slack_bolt import App, Say
 from slack_bolt.adapter.aws_lambda import SlackRequestHandler
 
 from app.config import setting
-from app.di.slack import init_slack_use_case
+# from app.di.slack import init_slack_use_case
 from app.domain.model.paper import Paper
 from app.infrastructure.secrets_manager.get_secret import get_secret
 
@@ -38,32 +38,32 @@ def handle_app_mention_events(event: dict, say: Say):
     # メッセージのタイムスタンプを取得（スレッドの親メッセージIDとして使用）
     ts = event.get("ts")
 
-    url = extract_arxiv_url(event)
+    # url = extract_arxiv_url(event)
 
-    if not url or "arxiv.org/abs/" not in url:
-        say(
-            text="論文のURLが無効です。\n このBotはarxivの論文しか対応していません。",
-            thread_ts=ts,
-        )
-        return
+    # if not url or "arxiv.org/abs/" not in url:
+    #     say(
+    #         text="論文のURLが無効です。\n このBotはarxivの論文しか対応していません。",
+    #         thread_ts=ts,
+    #     )
+    #     return
 
-    # URLから論文IDを抽出
-    paper_id = url.split("arxiv.org/abs/")[-1]
-    if not paper_id:
-        say(
-            text="論文のURLが無効です。\n このBotはarxivの論文しか対応していません。",
-            thread_ts=ts,
-        )
-        return
+    # # URLから論文IDを抽出
+    # paper_id = url.split("arxiv.org/abs/")[-1]
+    # if not paper_id:
+    #     say(
+    #         text="論文のURLが無効です。\n このBotはarxivの論文しか対応していません。",
+    #         thread_ts=ts,
+    #     )
+    #     return
 
-    # 返信メッセージを作成
-    summarize_use_case = init_slack_use_case()
-    paper = summarize_use_case.execute(paper_id)
-    formatted_message = format_paper_for_slack(paper)
+    # # 返信メッセージを作成
+    # summarize_use_case = init_slack_use_case()
+    # paper = summarize_use_case.execute(paper_id)
+    # formatted_message = format_paper_for_slack(paper)
 
-    # スレッドに返信
+    # # スレッドに返信
     say(
-        text=formatted_message,
+        text="齋藤です。こんにちは。",
         thread_ts=ts,  # スレッドの親メッセージIDを指定
     )
 
