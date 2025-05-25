@@ -16,13 +16,13 @@ app = App(
 def format_paper_for_slack(paper: Paper) -> str:
     """PaperオブジェクトをSlackメッセージ用の文字列に変換する"""
     return f"""
-    **{paper.title}**
+    *{paper.title}*
 
-    **著者**: {", ".join(paper.authors)} 
-    **カテゴリ**: {", ".join(paper.categories)}
-    **公開日**: {paper.published_date}
-    **URL**: {paper.url}
-    **PDF**: {paper.pdf_url}
+    *著者*: {", ".join(paper.authors)} 
+    *カテゴリ*: {", ".join(paper.categories)}
+    *公開日*: {paper.published_date}
+    *URL*: {paper.url}
+    *PDF*: {paper.pdf_url}
 
     {paper.summary}"""
 
